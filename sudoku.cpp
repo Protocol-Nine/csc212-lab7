@@ -28,21 +28,21 @@ Sudoku::Sudoku(std::string f_name) {
 
 bool Sudoku::solve(unsigned int row, unsigned int col) {
     // If all cells are filled, then return true
-    if (row == 9) {
+    if (row == this->BOARD_SIZE) {
         return true;
     }
 
     // If cell is already filled, move on to next cell
-    if ((this->board)[row][col] != 0) {
-        if (col == 8) {
+    if ((this->board)[row][col] != this->EMPTY) {
+        if (col == this->BOARD_SIZE - 1) {
             return(this->solve(row + 1, 0));
         } else {
             return(this->solve(row, col + 1));
         }
     }
 
-    // For each digit 1 - 9
-    for (int num = 1; num < 10; num++) {
+    // For each digit
+    for (int num = 1; num <= this->BOARD_SIZE; num++) {
 
         // Check if digit can be placed
         if (this->is_valid(row, col, num)) {
@@ -51,7 +51,7 @@ bool Sudoku::solve(unsigned int row, unsigned int col) {
 
             // Recurse to next empty cell
                 //If next cell returns true, return true
-            if (col == 8) {
+            if (col == this->BOARD_SIZE - 1) {
                 if (this->solve(row + 1, 0)) {
                     return true;
                 }
@@ -83,7 +83,7 @@ bool Sudoku::is_valid(unsigned int row, unsigned int col, int num){
 // Return true if num exists within row
 bool Sudoku::check_row(unsigned int row, unsigned int num){
     // Traverse the row, checking each element for num, and returning true if found
-    for (int col = 0; col < 9; col++) {
+    for (int col = 0; col < this->BOARD_SIZE; col++) {
         if ((this->board)[row][col] == num) {
             return true;
         }
@@ -94,7 +94,7 @@ bool Sudoku::check_row(unsigned int row, unsigned int num){
 // Return true if num exists within col
 bool Sudoku::check_col(unsigned int col, unsigned int num){
     // Traverse the col, checking each element for num, and returning true if found
-    for (int row = 0; row < 9; row++) {
+    for (int row = 0; row < this->BOARD_SIZE; row++) {
         if ((this->board)[row][col] == num) {
             return true;
         }
