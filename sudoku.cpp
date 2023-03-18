@@ -16,11 +16,11 @@ Sudoku::Sudoku(std::string f_name) {
     std::ifstream input_file(f_name);
     std::string row_data;
 
-    for (int row = 0; row < 9; row++) {
+    for (int row = 0; row < BOARD_SIZE; row++) {
         // Get next line from file to convert to row in board
         std::getline(input_file, row_data);
         std::stringstream ss(row_data);
-        for(int col = 0; col < 9; col++) {
+        for(int col = 0; col < BOARD_SIZE; col++) {
             ss >> (this->board)[row][col];
         }
     }
